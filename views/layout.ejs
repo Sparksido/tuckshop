@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include head.ejs %>
+</head>
+<body>
+
+<h2>Hi <%= name %></h1><br>
+<h1>Welcome to <%= store_name %></h1><br>
+
+<!-- to go on the side bar -->
+<ul>
+	<li><a href="/users/specials" class="btn btn-default btn-lg">Specials</a></li>
+	<li><a href="/users/orders" class="btn btn-default btn-lg">Orders</a></li>
+	<li><a href="/users/activity" class="btn btn-default btn-lg">Activity</a></li>
+	<li><a href="/users/settings" class="btn btn-default btn-lg">settings</a></li>
+</ul><br><br>
+
+<!-- the form to uploading a profile pic -->
+<form action="/users/pro_pic" class="form-horizontal" enctype="multipart/form-data" name="testing_form" method="post">
+	<div class="form-group" class="col-sm-2 control-label">
+		<label for="product_name" class="col-sm-2 control-label">Image:</label>
+		<input type="file" class="btn btn-info" name="product_image" >
+	</div>
+	<div class="form-group" class="col-sm-2 control-label">
+		<input class="btn btn-info" type="submit" value="upload" name="push_button">
+	</div>
+</form>
+
+<a href="/users/upload" class="btn btn-default btn-lg">Upload a good</a>
+
+</body>
+</html>

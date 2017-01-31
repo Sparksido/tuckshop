@@ -1,0 +1,60 @@
+#market-image {
+	height: 180px;
+	width: 100%;
+	background-color: #444;
+	background-image: url('../images/Market_picture.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+#navbar{
+	height:70px;
+	width:100%;
+	background-color:black;
+	/*position:fixed;*/
+}
+
+#market_search_form{
+	float:right;
+	margin-top:-30px;
+}
+
+#user_type{
+	display:table;
+	position:absolute;
+	height: 25%;
+	width:100%;
+}
+
+#user_type1{
+	/*float:right;*/
+	padding-right: 5px;
+	width:125px;
+}
+
+#user_type2{
+	/*float:right;*/
+	padding-left: 5px;
+	width:125px;
+	vertical-align: middle;
+}
+
+#product_div{
+	overfill:hidden;
+}
+
+#shop_div{
+	overfill:hidden;
+}
+
+#middle{
+	display:table-cell;
+	vertical-align: middle;	
+}
+
+.location{
+	top: -50%;
+}

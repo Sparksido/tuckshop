@@ -10,7 +10,8 @@ var fs = require("fs");
 
 //connecting to the mongodb database
 // Connection URL
-var url = 'mongodb://localhost:27017/tuckshop';
+//var url = 'mongodb://localhost:27017/tuckshop';
+var url = "mongodb://Sparksiano:Mochudi1991!@ds161048.mlab.com:61048/tuckshop";
 
 // Use connect method to connect to the server
 /*MongoClient.connect(url, function(err, db) {
@@ -67,17 +68,21 @@ router.post("/login_receiver",function(req,res){
 
         //connecting to the database to check the password matches
         MongoClient.connect(url, function(err, db) {
-  			// choose the stores collection
-  			var estabs = db.collection('stores');
-  			// Insert fields into database
-  			estabs.findOne({"store_name":fields.given_name},function(err,retails){
-  				
-  				//finally rendering the layout page
-    			if(fields.given_pass == retails.password){
-    				res.render("layout",{title:"Tuck Shop", name:"typical Jeweler", store_name:fields.given_name});
-    			}else{
-    				res.render("login",{title: "Tuck Shop", message:"wrong password"});
-    			}
+
+  			  // choose the stores collection
+  			  var estabs = db.collection('stores');
+  			  // Insert fields into database
+  			  estabs.findOne({"store_name":fields.given_name},function(err,retails){
+            if(err){
+              console.log(err);
+  				  }else{
+    				  //finally rendering the layout page
+      			  if(fields.given_pass == retails.password){
+      				  res.render("layout",{title:"Tuck Shop", name:"typical Jeweler", store_name:fields.given_name});
+      			  }else{
+      				  res.render("login",{title: "Tuck Shop", message:"wrong password"});
+      			  }
+            }
   			});
     	});
     });
@@ -106,7 +111,7 @@ router.get("/settings",function(req,res){
 router.post("/pro_pic",function(req,res){
 
 	var form2 = new formidable.IncomingForm();
-	form2.uploadDir = '/home/mopati/exp_proj_3/public/images/';
+	form2.uploadDir = '/home/mopati/tuckshop2/public/images/';
 
 	form2.parse(req, function(err, fields, files) {
 
@@ -118,7 +123,7 @@ router.post("/pro_pic",function(req,res){
 		var store_name = req.cookies.store_name;
 
 		//renaming the image to what the store's name is + _pro_pic
-		fs.rename(files.product_image.path,'/home/mopati/exp_proj_3/public/images/'+ store_name +"_pro_pic.jpg");
+		fs.rename(files.product_image.path,'/home/mopati/tuckshop2/public/images/'+ store_name +"_pro_pic.jpg");
 
 		//updating the store item data document to add a profile pic field
 		MongoClient.connect(url, function(err, db) {
@@ -146,7 +151,7 @@ router.post("/upload_receiver",function(req,res){
 	
 	//new form for upload
 	var form2 = new formidable.IncomingForm();
-	form2.uploadDir = '/home/mopati/exp_proj_3/public/images/';
+	form2.uploadDir = '/home/mopati/tuckshop2/public/images/';
 
 	form2.parse(req, function(err, fields, files) {
 
@@ -171,7 +176,7 @@ router.post("/upload_receiver",function(req,res){
   		console.log("and the files are:"); 	
 		console.log(files);  		
 
-  		fs.rename(files.product_image.path,'/home/mopati/exp_proj_3/public/images/'+product_name);
+  		fs.rename(files.product_image.path,'/home/mopati/tuckshop2/public/images/'+product_name);
 
       	MongoClient.connect(url, function(err, db) {
   			// choose the products collection

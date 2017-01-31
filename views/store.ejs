@@ -5,6 +5,26 @@
 </head>
 
 <body>
+<% include partial_market_navbar %>
 
+<div>
+	<h2><%= store_name %></h2>
+	<% for(var i=0; i < stock.length; i++) { %>
+		<!-- <div class="container"> -->
+			<!-- <div class="row "> -->
+				<!-- <div class="span-12"> -->
+				    <div class="col-sm-6 col-md-3" id="product_div">
+				    	<div style="height:300px" class="thumbnail">
+				   			<img height="100%" src="/images/<%=stock[i].product_name%>">
+				   		</div>
+				   		<div class="caption">
+					    	<h3><%= stock[i].product_name %></h3>
+					    </div>
+					</div>
+				<!-- </div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+	<% } %>
+</div>
 </body>
 </html>

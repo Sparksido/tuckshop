@@ -85,8 +85,8 @@ router.post("/login_receiver",function(req,res){
 
           //Get three goods from the store
           var prods = db.collection("products");
-          estabs.findOne({}, function(err,prods){
-
+          estabs.find({"store_name":fields.given_name},{"limit":4}, function(err,prods){
+            console.log(prods);
           });
 
     	});

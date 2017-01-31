@@ -5,8 +5,7 @@ var assert = require('assert');
 var formidable = require("formidable");
 var fs = require("fs");
 
-var url = "mongodb://Sparksiano:Mochudi1991!@ds161048.mlab.com:61048/tuckshop";
-//var url = 'mongodb://localhost:27017/tuckshop';
+var url = 'mongodb://localhost:27017/tuckshop';
 
 /* GET home page. */
 router.get('/',function(req,res){

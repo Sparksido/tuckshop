@@ -10,8 +10,7 @@ var fs = require("fs");
 
 //connecting to the mongodb database
 // Connection URL
-//var url = 'mongodb://localhost:27017/tuckshop';
-var url = "mongodb://Sparksiano:Mochudi1991!@ds161048.mlab.com:61048/tuckshop";
+var url = 'mongodb://localhost:27017/tuckshop';
 
 // Use connect method to connect to the server
 /*MongoClient.connect(url, function(err, db) {
@@ -69,9 +68,8 @@ router.post("/login_receiver",function(req,res){
         //connecting to the database to check the password matches
         MongoClient.connect(url, function(err, db) {
 
-  			  // choose the stores collection
+  			  // Find the store fields into database
   			  var estabs = db.collection('stores');
-  			  // Insert fields into database
   			  estabs.findOne({"store_name":fields.given_name},function(err,retails){
             if(err){
               console.log(err);
@@ -83,7 +81,14 @@ router.post("/login_receiver",function(req,res){
       				  res.render("login",{title: "Tuck Shop", message:"wrong password"});
       			  }
             }
-  			});
+  			  });
+
+          //Get three goods from the store
+          var prods = db.collection("products");
+          estabs.findOne({}, function(err,prods){
+
+          });
+
     	});
     });
 });

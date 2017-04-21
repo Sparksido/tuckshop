@@ -12,13 +12,6 @@ var fs = require("fs");
 // Connection URL
 var url = 'mongodb://localhost:27017/tuckshop';
 
-// Use connect method to connect to the server
-/*MongoClient.connect(url, function(err, db) {
-  	assert.equal(null, err);
-  	console.log("Connected successfully to server");
-  	db.close();
-});*/
-
 /* GET users listing. */
 router.post('/', function(req, res) {
 
@@ -33,12 +26,9 @@ router.post('/', function(req, res) {
 		//set the cookies
 		res.cookie("description",fields.description);
 		res.cookie("store_name",fields.store_name);
-        //res.writeHead(200, {'content-type': 'text/plain'});
-        res.render("layout",{title:"Tuck Shop", name:fields.name, store_name:fields.store_name});
-        //res.write('received upload:\n\n');
-        //res.end(util.inspect({fields: fields, files: files}));
+    res.render("layout",{title:"Tuck Shop", name:fields.name, store_name:fields.store_name});
         
-        MongoClient.connect(url, function(err, db) {
+      MongoClient.connect(url, function(err, db) {
   			// choose the stores collection
   			var col = db.collection('stores');
   			// Insert fields into database
@@ -46,10 +36,10 @@ router.post('/', function(req, res) {
     			assert.equal(null, err);
     		});
     	});
-    });
+  });
 
-    // Cookies that have been signed
-  	console.log('Signed Cookies: ', req.signedCookies)
+  // Cookies that have been signed
+  // console.log('Signed Cookies: ', req.signedCookies)
 });
 
 router.post("/login_receiver",function(req,res){
@@ -63,34 +53,33 @@ router.post("/login_receiver",function(req,res){
 	form3.parse(req, function(err, fields, files) {
 
 		//set the cookie
-   		res.cookie("store_name",fields.given_name);
+   	res.cookie("store_name",fields.given_name);
 
-        //connecting to the database to check the password matches
-        MongoClient.connect(url, function(err, db) {
+    //connecting to the database to check the password matches
+    MongoClient.connect(url, function(err, db) {
 
-  			  // Find the store fields into database
-  			  var estabs = db.collection('stores');
-  			  estabs.findOne({"store_name":fields.given_name},function(err,retails){
-            if(err){
-              console.log(err);
-  				  }else{
-    				  //finally rendering the layout page
-      			  if(fields.given_pass == retails.password){
-      				  res.render("layout",{title:"Tuck Shop", name:"typical Jeweler", store_name:fields.given_name});
-      			  }else{
-      				  res.render("login",{title: "Tuck Shop", message:"wrong password"});
-      			  }
-            }
-  			  });
+  		// Find the store fields into database
+  		var estabs = db.collection('stores');
+  		estabs.findOne({"store_name":fields.given_name},function(err,retails){
+        if(err){
+          console.log(err);
+  			}else{
+    			//finally rendering the layout page
+      		if(fields.given_pass == retails.password){
+      			res.render("layout",{title:"Tuck Shop", name:"typical Jeweler", store_name:fields.given_name});
+      		}else{
+      			res.render("login",{title: "Tuck Shop", message:"wrong password"});
+      		}
+        }
+  		});
 
-          //Get three goods from the store
-          var prods = db.collection("products");
-          estabs.find({"store_name":fields.given_name},{"limit":4}, function(err,prods){
-            console.log(prods);
-          });
-
-    	});
+      //Get three goods from the store
+      var prods = db.collection("products");
+      estabs.find({"store_name":fields.given_name},{"limit":4}, function(err,prods){
+        console.log(prods);
+      });
     });
+  });
 });
 
 router.get("/layout",function(req,res){
@@ -120,8 +109,8 @@ router.post("/pro_pic",function(req,res){
 
 	form2.parse(req, function(err, fields, files) {
 
-      	//I'm not entirely sure what this line does but it seems important according to the docs
-      	res.end(util.inspect({fields: fields, files: files}));
+    //I'm not entirely sure what this line does but it seems important according to the docs
+    res.end(util.inspect({fields: fields, files: files}));
 		console.log("the image was uploaded successfully");
 
 		//assigning the strore name to a variable
@@ -132,17 +121,16 @@ router.post("/pro_pic",function(req,res){
 
 		//updating the store item data document to add a profile pic field
 		MongoClient.connect(url, function(err, db) {
-	  			// choose the stores collection
-	  			var entry = db.collection('stores');
-	  			// updating the fields in the database
-	  			entry.updateOne(
-	  			{
-	  				"store_name":req.cookies.store_name
-	  			},{
-	    			$set:{"profile_pic":req.cookies.store_name + "_pro_pic.jpg"}
-	    			//$currentDate:{lastModified:true}
-	    		});
-	    	});
+	  	// choose the stores collection
+	  	var entry = db.collection('stores');
+	  	// updating the fields in the database
+	  	entry.updateOne(
+        {
+	  			"store_name":req.cookies.store_name
+	  		},{
+	    		$set:{"profile_pic":req.cookies.store_name + "_pro_pic.jpg"}
+	    });
+	  });
 	});
 
 	res.render("layout", {title:"Tuck Shop", name:req.cookies.name, store_name:req.cookies.store_name});

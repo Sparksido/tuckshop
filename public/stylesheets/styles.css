@@ -1,13 +1,18 @@
 #market-image {
-	height: 180px;
+	height: 300px;
 	width: 100%;
 	background-color: #444;
-	background-image: url('../images/Market_picture.jpg');
+	background-image: url('../images/store_banner_image.jpg');
+	background-position: 0px 50px;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	position: relative;
 	margin-bottom: 50px;
+}
+
+#market-image h2{
+	margin-top:0px;
 }
 
 #navbar{
@@ -43,11 +48,11 @@
 }
 
 #product_div{
-	overfill:hidden;
+	overflow: :hidden;
 }
 
 #shop_div{
-	overfill:hidden;
+	overflow:hidden;
 }
 
 #middle{

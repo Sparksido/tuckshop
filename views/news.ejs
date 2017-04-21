@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<% include partial_head.ejs %>
+</head>
+<body>
+	<% include partial_navbar.ejs %>
+
+	<% for(i=0; i < news.length; i++){ %>
+
+		<div id="article">
+            <h3><%= news[i].heading %></h3>
+            <p><%= news[i].summary %></p>
+        </div>
+
+	<% } %>
+
+	<% include partial_footer.ejs %>
+</body>
+</html>

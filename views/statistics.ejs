@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include partial_head.ejs %>
+</head>
+
+<body>
+
+	<% include partial_navbar.ejs %>
+	<div id="scorers">
+		<h2>Top Goal Scorers</h2>
+		
+		<% for(i=0; i < scorers.length; i++){ %>
+			<div id="high_acheiver">
+				<div id="scorer_name"><%= scorers[i].scorer_name %></div>
+				<div id="number_goals">
+					<div id="number">
+						<%= scorers[i].goals %>
+					</div>
+				</div>
+			</div>
+		<% } %>
+	
+	</div>
+
+	<div id="assists">
+		<h2>Top Assists</h2>
+		
+			<% for(i=0; i < assists.length; i++) { %>
+				<div id="high_acheiver">
+					<div id="scorer_name"><%= assists[i].assister %></div>
+					<div id="number_goals">
+						<div id="number">
+							<%= assists[i].assists %>
+						</div>		
+					</div>
+				</div>
+			<% } %>
+		
+	</div>
+
+	<% include partial_footer.ejs %>
+</body>
+</html>

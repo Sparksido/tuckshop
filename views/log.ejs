@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include partial_head.ejs %>
+</head>
+<body>
+    <% include partial_navbar.ejs %>
+
+  	<div id="standings">
+  		<h2>Log Standings</h2>
+  		<% for(i=0; i < standings.length; i++){ %>
+	  		<div id="position">
+	  			<div id="pos_compiled">
+			  		<div id="team_name"><%= standings[i].squad %></div>
+			  		<div id="stat"><div id="number"><%= standings[i].wins %></div></div>
+			  		<div id="stat"><div id="number"><%= standings[i].draws %></div></div>
+			  		<div id="stat"><div id="number"><%= standings[i].losses %></div></div>
+			  		<div id="stat"><div id="number"><%= standings[i].points %></div></div>
+			  	</div>
+		  	</div>
+		<% } %>
+  	</div>
+
+    <% include partial_footer.ejs %>
+</body>
+</html>

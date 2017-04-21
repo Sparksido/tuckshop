@@ -1,20 +1,49 @@
 <!DOCTYPE html>
+<html>
 <head>
-	<% include head.ejs %>
+	<% include partial_head.ejs %>
 </head>
-
 <body>
+    <% include partial_navbar.ejs %>
 
-<% include partial_market_navbar %>
-<% include partial_market.ejs %>
+    <p id="intro"> The home of all sports scores, news and updates all in one place </p>
 
-<div class="container" id="user_type">
-	<div class="row" id="middle">
-		<center class="location">
-				<a class="btn btn-default btn-lg" id="user_type1" href="/login">Store Owner</a>
-				<a class="btn btn-default btn-lg" id="user_type2" href="/market">Shopper</a>
-		</center>
-	</div>
-</div>
+    <div id="fence">
+    <h2> This week's results </h2>
+    	<% for(i=0; i < scores.length; i++) { %>
+    		<div id="results">
+    			<div id="game">
+		    		<div id="team1">
+                        <%= scores[i].team1 %>
+                    </div>
+		    		<div id="goals">
+                        <div id="number">
+                            <%= scores[i].goals1 %> 
+                        </div>           
+                    </div>
+		    		<div id="goals">
+                        <div id="number">
+                            <%= scores[i].goals2 %>  
+                        </div>          
+                    </div>
+		    		<div id="team1">
+                        <%= scores[i].team2 %>          
+                    </div>
+		    	</div>
+	    	</div>
+    	<% } %>
+    </div>
+
+    <div id="headlines">
+        <h2> Latest News </h2>
+        <% for(j=0; j < news.length; j++) { %>
+            <div id="article">
+                <h3><%= news[j].heading %></h3>
+                <p><%= news[j].summary %></p>
+            </div>
+        <% } %>
+    </div>
+
+    <% include partial_footer.ejs %>
 </body>
 </html>

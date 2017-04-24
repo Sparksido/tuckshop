@@ -6,6 +6,7 @@ var formidable = require("formidable");
 var fs = require("fs");
 
 var url = 'mongodb://localhost:27017/score_board';
+//var url = 'mongodb://Sparksiano:Makakatlela2017!@ds117251.mlab.com:17251/score_board';
 
 /* GET home page. */
 router.get('/',function(req,res){

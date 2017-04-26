@@ -70,35 +70,60 @@ router.get("/news",function(req,res){
  	});
 });
 
-// router.post('/store',function(req,res){
+router.get("/admin", function(req,res){
 
-// 	//trying to parse with formidable
-// 	var form = new formidable.IncomingForm();
+	res.render("score_board_admin",{title:"Score_Board"});
+});
 
-// 	form.parse(req, function(err, fields, files) {
-// 		if(err){
-// 			console.log("the err is:  "+ err);
-// 		}else{
-// 			console.log("the store name is: "+fields.store_name);
-// 		}
+router.post('/score_entry', function(req, res) {
 
-// 		// get all the products in the selected store
-// 		MongoClient.connect(url, function(err, db) {
+	//trying to parse with formidable
+	var form = new formidable.IncomingForm();
 
-// 			// set up a variable for the collection
-// 			var merchandise = db.collection("products");
+	form.parse(req, function(err, fields, files) {
 
-// 			//fetch the data from the collection
-// 			console.log("the store name again is: "+fields.store_name);
-// 			merchandise.find({store_name:fields.store_name}).toArray(function(err,docs){
-// 				assert.equal(null,err);
-// 				shops = docs;
-// 				console.log(docs);
-// 				res.render("store",{stock:docs, title: "the market", store_name:fields.store_name});
-// 			});
-// 		});
-// 	});
+		var obj = {};
+      	obj["team1"] = fields.team1;
+      	obj["goals1"]= fields.goals1;
+      	obj["goals2"]= fields.goals2;
+      	obj["team2"] = fields.team2;
 
-// });
+      	MongoClient.connect(url, function(err, db) {
+
+      		var col = db.collection("games");
+    		col.insert(obj, function(err, result) {
+      			assert.equal(null, err);
+      		});
+      	});
+	});	
+
+	res.render("score_board_admin",{title:"Score_Board"});
+});
+
+router.post('/log_entry', function(req, res) {
+
+	//trying to parse with formidable
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(err, fields, files) {
+
+		var obj = {};
+      	obj["squad"] = fields.squad;
+      	obj["wins"]= fields.wins;
+      	obj["draws"]= fields.draws;
+      	obj["losses"] = fields.losses;
+      	obj["points"] = fields.points;
+
+      	MongoClient.connect(url, function(err, db) {
+
+      		var col = db.collection("log");
+    		col.insert(obj, function(err, result) {
+      			assert.equal(null, err);
+      		});
+      	});
+	});	
+
+	res.render("score_board_admin",{title:"Score_Board"});
+});
 
 module.exports = router;

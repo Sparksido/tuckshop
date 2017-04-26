@@ -65,7 +65,7 @@ a {
 }
 
 #game{
-	width: 40%;
+	width: 45%;
     margin: auto;
 }
 
@@ -247,5 +247,16 @@ a {
 		margin:auto;
 	}
 
+	#pos_compiled{
+		width:95%;
+	}
+
+	#team_name{
+		width:65%;
+	}
+
+	#stat {
+    	width: 7%;
+    }
 
 }

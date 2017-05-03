@@ -14,7 +14,7 @@ router.get('/',function(req,res){
 	MongoClient.connect(url, function(err, db){
 
 		var score_list = db.collection("games");
-		score_list.find({}).toArray(function(err,scores){
+		score_list.find({"date":"02-05-2017"}).toArray(function(err,scores){
 			console.log(scores);
 
 			var stories = db.collection("news");
@@ -87,6 +87,20 @@ router.post('/score_entry', function(req, res) {
       	obj["goals1"]= fields.goals1;
       	obj["goals2"]= fields.goals2;
       	obj["team2"] = fields.team2;
+      	obj["date"]  = fields.date;
+
+      	var points1, points2;
+      	if (fields.goals1 > fields.goals2){
+      		points1 = 3;
+      		points2 = 0;
+      	}else if (fields.goals2 > fields.goals1){ 
+      		points2 = 3;
+      		points1 = 0;
+      	}else{
+      		points1 = 1;
+      		points2 = 1;
+      		console.log("they are tied");
+      	}
 
       	MongoClient.connect(url, function(err, db) {
 
@@ -94,6 +108,10 @@ router.post('/score_entry', function(req, res) {
     		col.insert(obj, function(err, result) {
       			assert.equal(null, err);
       		});
+
+      		var col2 = db.collection("log");
+      		col2.update({"squad":fields.team1},{$inc:{"points":points1}});
+      		col2.update({"squad":fields.team2},{$inc:{"points":points2}});
       	});
 	});	
 
